@@ -2,7 +2,13 @@ const express = require('express');
 const cors = require('cors');
 
 const app = express();
-app.use(cors());
+
+// Allowing only the frontend's live URL for CORS
+const corsOptions = {
+  origin: 'https://aesc-assignment.vercel.app', // Replace with your frontend's live URL
+};
+
+app.use(cors(corsOptions));
 
 const candidates = [
   { id: 1, name: 'Alice Johnson', skills: 'JavaScript, React', experience: 5 },
@@ -21,7 +27,7 @@ app.get('/api/candidates', (req, res) => {
   res.json(candidates);
 });
 
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
